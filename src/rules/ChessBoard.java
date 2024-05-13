@@ -197,6 +197,10 @@ public class ChessBoard {
                             // 马脚上，没有棋子
                             return true;
                         }
+                        else
+                        {
+                            return false;
+                        }
                     } 
                     else 
                     {
@@ -206,9 +210,11 @@ public class ChessBoard {
                             // 马脚上没有棋子
                             return true;
                         }
+                        else
+                        {
+                            return false;
+                        }
                     }
-                    // 没有马脚上的棋子阻挡，移动合法
-                    return true;
 
                 case CANNON:
                     if (chess_row == target_row) {
