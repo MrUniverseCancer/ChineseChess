@@ -439,4 +439,62 @@ public class ChessBoard {
             }
         }
     }
+
+    boolean isCheckmate(ChessPiece[][] chessboard, ChessPieceColor color)
+    {
+        int KING_row = -1;
+        int KING_col = -1;
+        if(color == ChessPieceColor.BLACK)
+        {
+            //判断黑色将军是否被将军
+            //寻找黑色方将军
+            for(int i = 0; i < 3 && KING_row == -1; i++)
+            {
+                for(int j = 3; j < 6 && KING_col == -1; j++)
+                {
+                    if(chessboard[i][j].getType() == ChessPieceType.KING)
+                    {
+                        KING_row = i;
+                        KING_col = j;
+                    }
+                }
+            }
+        }
+        else if(color == ChessPieceColor.RED)
+        {
+            //判断红色将军是否被将军
+            //寻找红色方将军
+
+            for(int i = 7; i < 10 && KING_row == -1; i++)
+            {
+                for(int j = 3; j < 6 && KING_col == -1; j++)
+                {
+                    if(chessboard[i][j].getType() == ChessPieceType.KING)
+                    {
+                        KING_row = i;
+                        KING_col = j;
+                    }
+                }
+            }
+
+        }
+        //找不到将军
+        if(KING_row == -1 && KING_col == -1)
+        {
+            return false;
+        }
+        //寻找将军比较简单的遍历实现
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 9; j++) {
+                if (chessboard[i][j] != null && chessboard[i][j].getColor() != color) {
+                    // 移动当前棋子，判断是否能够将对方的将/帅
+                    if (Move_Check(chessboard, i, j, KING_row, KING_col)) {
+                        // 存在可以将对方的将/帅，不算被将军
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
 }
