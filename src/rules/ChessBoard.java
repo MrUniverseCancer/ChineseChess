@@ -205,18 +205,18 @@ public class ChessBoard {
                     if (rowDistance == 1) {
                         // 竖移1格，横移2格的情况
                         int colOffset = (target_col > chess_col) ? 1 : -1;
-                        if (chessboard[chess_row][chess_col + colOffset] != null) {
-                            // 马脚上有棋子
-                            return false;
+                        if (chessboard[chess_row][chess_col + colOffset] == null) {
+                            // 马脚上，没有棋子
+                            return true;
                         }
                     } 
                     else 
                     {
                         // 横移1格，竖移2格的情况
                         int rowOffset = (target_row > chess_row) ? 1 : -1;
-                        if (chessboard[chess_row + rowOffset][chess_col] != null) {
-                            // 马脚上有棋子
-                            return false;
+                        if (chessboard[chess_row + rowOffset][chess_col] == null) {
+                            // 马脚上没有棋子
+                            return true;
                         }
                     }
                     // 没有马脚上的棋子阻挡，移动合法
