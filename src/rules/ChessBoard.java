@@ -16,8 +16,8 @@ enum ChessPieceType {
 }
 //棋子信息
 class ChessPiece {
-    private ChessPieceType type;
-    private ChessPieceColor color;
+    final ChessPieceType type;
+    final ChessPieceColor color;
     private int row;
     private int col;
 
@@ -225,7 +225,7 @@ public class ChessBoard {
                 case CANNON:
                     if (chess_row == target_row) {
                         // 横向移动
-                        int startCol = Math.min(chess_col, target_col); // 获取起始列
+                        int startCol = Math.min(chess_col, target_col) + 1 ; // 获取起始列
                         int endCol = Math.max(chess_col, target_col); // 获取结束列
                         int pieceCount = 0; // 记录目标位置之间的棋子数量
                         for (int col = startCol; col < endCol; col++) {
@@ -236,12 +236,12 @@ public class ChessBoard {
                         }
                         if (chessboard[target_row][target_col] == null) {
                             // 目标位置为空，判断目标位置之间是否有一个且只有一个棋子
-//                            return pieceCount == 0;
-                            return pieceCount == 1;
+                            return pieceCount == 0;
                         }
-                        else {
+                        else
+                        {
                             // 目标位置有敌方棋子，判断目标位置之间是否有两个及以上的棋子
-                            return pieceCount == 2;
+                            return pieceCount == 1;
                         }
                     } 
                     else if (chess_col == target_col) {
@@ -257,11 +257,11 @@ public class ChessBoard {
                         }
                         if (chessboard[target_row][target_col] == null) {
                             // 目标位置为空，判断目标位置之间是否有一个且只有一个棋子
-                            return pieceCount == 1;
+                            return pieceCount == 0;
                         } 
                         else {
                             // 目标位置有敌方棋子，判断目标位置之间是否有两个及以上的棋子
-                            return pieceCount == 2;
+                            return pieceCount == 1;
                         }
                     } 
                     else {
@@ -293,6 +293,27 @@ public class ChessBoard {
                     }
 
                 case KING:
+                    //飞将
+                    if(chess_col == target_col && Math.abs(chess_row - target_row) > 1)
+                    {
+                        if(chess.getColor() != chessboard[target_row][target_col].getColor() && chessboard[target_row][target_col].getType() == ChessPieceType.KING)
+                        {
+                            int startRow = Math.min(chess_row, target_row) + 1; // 获取起始行
+                            int endRow = Math.max(chess_row, target_row); // 获取结束行
+                            int pieceCount = 0; // 记录目标位置之间的棋子数量
+                            for (int row = startRow; row < endRow; row++) {
+                                // 检查当前行与目标行之间是否存在其他棋子
+                                if (chessboard[row][chess_col] != null) {
+                                    pieceCount++;
+                                }
+                            }
+                            return pieceCount == 0; //将与将之间不能有其它棋子阻隔
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
                     // 将只能在九宫格内移动一步
                     if ((Math.abs(chess_row - target_row) == 1 && chess_col == target_col) || 
                         (Math.abs(chess_col - target_col) == 1 && chess_row == target_row)) {
@@ -315,68 +336,116 @@ public class ChessBoard {
                         }
                         // 移动合法
                         return true;
-                    } else {
+                    }
+                    else {
                         // 将只能在九宫格内移动一步
                         return false;
                     }
                         
                 case ELEPHANT:
-                    // 象的移动是有规律的，只能是“走日”移动，即每次移动两个格子，一个方向走一步
-                    if (Math.abs(chess_row - target_row) == 2 && Math.abs(chess_col - target_col) == 2) {
-                        int middleRow = (chess_row + target_row) / 2; // 获取象眼的行坐标
-                        int middleCol = (chess_col + target_col) / 2; // 获取象眼的列坐标
-                        // 检查象眼是否被堵住
-                        if (chessboard[middleRow][middleCol] == null) {
-                            // 象眼没有被堵住，移动合法
-                            return true;
+                    //判断象的颜色，以限制其活动范围
+                    if(chess.getColor() == ChessPieceColor.RED){
+                        if(target_row >= 5)
+                        {
+                            // 象的移动是有规律的，只能是“走日”移动，即每次移动两个格子，一个方向走一步
+                            if (Math.abs(chess_row - target_row) == 2 && Math.abs(chess_col - target_col) == 2) {
+                                int middleRow = (chess_row + target_row) / 2; // 获取象眼的行坐标
+                                int middleCol = (chess_col + target_col) / 2; // 获取象眼的列坐标
+                                // 检查象眼是否被堵住
+                                if (chessboard[middleRow][middleCol] == null) {
+                                    // 象眼没有被堵住，移动合法
+                                    return true;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            return false;
                         }
                     }
-                    // 移动不合法
-                    return false;
+                    else if(chess.getColor() == ChessPieceColor.BLACK)
+                    {
+                        if(target_row <= 4)
+                        {
+                            // 象的移动是有规律的，只能是“走日”移动，即每次移动两个格子，一个方向走一步
+                            if (Math.abs(chess_row - target_row) == 2 && Math.abs(chess_col - target_col) == 2) {
+                                int middleRow = (chess_row + target_row) / 2; // 获取象眼的行坐标
+                                int middleCol = (chess_col + target_col) / 2; // 获取象眼的列坐标
+                                // 检查象眼是否被堵住
+                                if (chessboard[middleRow][middleCol] == null) {
+                                    // 象眼没有被堵住，移动合法
+                                    return true;
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        // 移动不合法
+                        return false;
+                    }
+
 
                 case PAWN:
                     // 判断卒的颜色，以确定其可移动的方向
                     if (chess.getColor() == ChessPieceColor.RED) {
                         // 红卒
-                        if (chess_row <= 4) {
+                        if (chess_row >= 5) {
                             // 未过河
                             if (target_row == chess_row - 1 && target_col == chess_col) {
                                 // 向前一步移动
                                 return true;
                             }
-                        } else {
+                            else
+                            {
+                                return false;
+                            }
+                        }
+                        else {
                             // 已过河
                             if (target_row == chess_row - 1 && target_col == chess_col) {
                                 // 向前一步移动
                                 return true;
-                            } else if (target_row == chess_row && Math.abs(target_col - chess_col) == 1) {
+                            }
+                            else if (target_row == chess_row && Math.abs(target_col - chess_col) == 1) {
                                 // 向左右任意一侧移动一步
                                 return true;
+                            }
+                            else
+                            {
+                                return false;
                             }
                         }
                     } 
                     else 
                     {
                         // 黑卒
-                        if (chess_row >= 5) {
+                        if (chess_row <= 4) {
                             // 未过河
                             if (target_row == chess_row + 1 && target_col == chess_col) {
                                 // 向前一步移动
                                 return true;
+                            }
+                            else
+                            {
+                                return false;
                             }
                         } else {
                             // 已过河
                             if (target_row == chess_row + 1 && target_col == chess_col) {
                                 // 向前一步移动
                                 return true;
-                            } else if (target_row == chess_row && Math.abs(target_col - chess_col) == 1) {
+                            }
+                            else if (target_row == chess_row && Math.abs(target_col - chess_col) == 1) {
                                 // 向左右任意一侧移动一步
                                 return true;
                             }
+                            else
+                            {
+                                return false;
+                            }
                         }
                     }
-                    // 移动不合法
-                    return false;   
                      
                 default : return false;            
             }
