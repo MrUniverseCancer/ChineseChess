@@ -29,7 +29,7 @@ public class ContestScreen
 
 
         //装载棋盘
-        direction = 0;
+        direction = 1;
         String path = "file:\\" + System.getProperty("user.dir") + "/src/GUI/Image";
         board1 = new Image(path + "\\board.jpg");
 
