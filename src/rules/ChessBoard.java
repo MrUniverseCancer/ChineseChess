@@ -18,8 +18,6 @@ enum ChessPieceType {
 class ChessPiece {
     final ChessPieceType type;
     final ChessPieceColor color;
-    private int row;
-    private int col;
 
     public ChessPiece(ChessPieceType type, ChessPieceColor color) {
         this.type = type;
@@ -32,16 +30,6 @@ class ChessPiece {
     
     public ChessPieceColor getColor() {
         return color;
-    }
-
-    // 获取棋子当前行
-    public int getRow() {
-        return row;
-    }
-    
-    // 获取棋子当前列
-    public int getCol() {
-        return col;
     }
 }
 
