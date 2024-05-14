@@ -224,6 +224,7 @@ public class LoginScreen
             if(state == 0)
             {
                 // 登陆页面
+                int state;
                 String account = acconut1.getText();
                 String pass    = pass1.getText();
                 System.out.println("acconut: " + account + "  pass: " + pass);
@@ -232,14 +233,19 @@ public class LoginScreen
                     Reply.setVisible(true);
                     Reply.setText("禁止为空");
                 }
-                else if(AccountManager.verifyAccount(account, pass))
+                else if((state = AccountManager.verifyAccount(account, pass)) == 0 )
                 {
                     stage.close();
                 }
                 else
                 {
                     Reply.setVisible(true);
-                    Reply.setText("密码或账号错误");
+                    if(state == -1)
+                        Reply.setText("读取错误");
+                    else if(state == -2)
+                        Reply.setText("密码错误");
+                    else if(state == -3)
+                        Reply.setText("账号不存在");
                 }
             }
             else
@@ -256,7 +262,7 @@ public class LoginScreen
                 }
                 else if(pass1.equals(pass2))
                 {
-                    if(false)
+                    if(( AccountManager.storeAccount(account, pass1)) != 0)
                     {
                         localstate = 2;
                     }
@@ -277,7 +283,7 @@ public class LoginScreen
                 }
                 else if(localstate == 2)
                 {
-                    Reply.setText("未知");
+                    Reply.setText("创建用户失败");
                 }
             }
         }
