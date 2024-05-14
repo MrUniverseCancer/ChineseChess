@@ -252,7 +252,7 @@ public class LoginScreen
             {
                 // 注册页面
                 Reply.setVisible(true);
-                String account = acconut1.getText();
+                String account = acconut2.getText();
                 String pass1   = pass2_1.getText();
                 String pass2   = pass2_2.getText();
                 int localstate = 0;

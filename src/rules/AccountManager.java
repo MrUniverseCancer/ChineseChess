@@ -30,8 +30,7 @@ public class AccountManager {
                 if (parts.length == 2 && parts[0].equals(username) && parts[1].equals(password)) {
                     return 0;   //验证成功
                 }
-                else
-                {
+                else if(parts.length == 2 && parts[0].equals(username) && !parts[1].equals(password)) {
                     return -2;  //有该用户，但是密码不正确
                 }
             }
