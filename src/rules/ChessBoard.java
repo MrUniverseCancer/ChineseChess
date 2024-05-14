@@ -347,7 +347,8 @@ public class ChessBoard {
                         if(target_row >= 5)
                         {
                             // 象的移动是有规律的，只能是“走日”移动，即每次移动两个格子，一个方向走一步
-                            if (Math.abs(chess_row - target_row) == 2 && Math.abs(chess_col - target_col) == 2) {
+                            if (Math.abs(chess_row - target_row) == 2 && Math.abs(chess_col - target_col) == 2)
+                            {
                                 int middleRow = (chess_row + target_row) / 2; // 获取象眼的行坐标
                                 int middleCol = (chess_col + target_col) / 2; // 获取象眼的列坐标
                                 // 检查象眼是否被堵住
@@ -355,6 +356,13 @@ public class ChessBoard {
                                     // 象眼没有被堵住，移动合法
                                     return true;
                                 }
+                                else{
+                                    return false;
+                                }
+                            }
+                            else
+                            {
+                                return false;
                             }
                         }
                         else
@@ -375,7 +383,16 @@ public class ChessBoard {
                                     // 象眼没有被堵住，移动合法
                                     return true;
                                 }
+                                else {
+                                    return false;
+                                }
                             }
+                            else {
+                                return false;
+                            }
+                        }
+                        else {
+                            return false;
                         }
                     }
                     else
@@ -429,7 +446,8 @@ public class ChessBoard {
                             {
                                 return false;
                             }
-                        } else {
+                        }
+                        else {
                             // 已过河
                             if (target_row == chess_row + 1 && target_col == chess_col) {
                                 // 向前一步移动
@@ -463,7 +481,7 @@ public class ChessBoard {
             {
                 for(int j = 3; j < 6 && KING_col == -1; j++)
                 {
-                    if(chessboard[i][j].getType() == ChessPieceType.KING)
+                    if(chessboard[i][j] != null && chessboard[i][j].getType() == ChessPieceType.KING)
                     {
                         KING_row = i;
                         KING_col = j;
@@ -480,7 +498,7 @@ public class ChessBoard {
             {
                 for(int j = 3; j < 6 && KING_col == -1; j++)
                 {
-                    if(chessboard[i][j].getType() == ChessPieceType.KING)
+                    if(chessboard[i][j] != null && chessboard[i][j].getType() == ChessPieceType.KING)
                     {
                         KING_row = i;
                         KING_col = j;
@@ -505,36 +523,6 @@ public class ChessBoard {
                     }
                 }
             }
-        }
-        return false;
-    }
-}
-
-public class AccountManager {
-    private static final String ACCOUNT_FILE_PATH = "accounts.txt"; //存储账户信息的文件
-    // 存储账户信息到文件
-    public static void storeAccount(String username, String password) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(ACCOUNT_FILE_PATH, true))) {
-            writer.write(username + "," + password);
-            writer.newLine();
-        } catch (IOException e) {
-            System.err.println("Error storing account: " + e.getMessage());
-        }
-    }
-
-    // 核验登录是否存在该账户和对应的密码是否正确
-    public static boolean verifyAccount(String username, String password) {
-        try (BufferedReader reader = new BufferedReader(new FileReader(ACCOUNT_FILE_PATH))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] parts = line.split(",");   //parts[1]为账户名,parts[2]为账户密码
-                if (parts.length == 2 && parts[0].equals(username) && parts[1].equals(password)) {
-                    return true;
-                }
-            }
-        }
-        catch (IOException e) {
-            System.err.println("Error verifying account: " + e.getMessage());
         }
         return false;
     }
