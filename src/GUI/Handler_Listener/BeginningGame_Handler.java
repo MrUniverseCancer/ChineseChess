@@ -34,6 +34,7 @@ public class BeginningGame_Handler implements EventHandler<ActionEvent>
         //将排行榜选项，设置选项设为不可见
         head_inst.getBackGround().getRankingList_Button().setVisible(false);
         head_inst.getBackGround().getSetUp_Button().setVisible(false);
+        head_inst.getBackGround().getLogin_Button().setVisible(false);
         //将时钟设为可见
         head_inst.getBackGround().getClock().getPane().setVisible(true);
     }

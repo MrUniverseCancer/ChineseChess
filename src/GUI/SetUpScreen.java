@@ -43,16 +43,16 @@ public class SetUpScreen
         Pane userPriority = new Pane();
         ToggleGroup group = new ToggleGroup();
 
-        Label label = new Label("选择先手方");
-        label.setStyle("-fx-font-size: 18px; -fx-font-family: 'Arial'; -fx-text-fill: grey;");
+        Label label = new Label("选择下方");
+        label.setStyle("-fx-font-size: 18px; -fx-font-family: 'Arial'; -fx-text-fill: blue;");
         label.setLayoutX(0);
         label.setLayoutY(0);
 
 
-        RadioButton button1 = new RadioButton("红先");
+        RadioButton button1 = new RadioButton("红下");
         button1.setLayoutX(0);
         button1.setLayoutY(length / 3.0);
-        button1.setStyle("-fx-font-size: 18px; -fx-font-family: 'Arial'; -fx-text-fill: red;");
+        button1.setStyle("-fx-font-size: 18px; -fx-font-family: 'Arial'; -fx-text-fill: blue;");
         button1.setSelected(true);
         button1.setContentDisplay(ContentDisplay.LEFT);
         button1.setOnAction(e -> {
@@ -62,10 +62,10 @@ public class SetUpScreen
             }
         });
 
-        RadioButton button2 = new RadioButton("黑先");
+        RadioButton button2 = new RadioButton("黑下");
         button2.setLayoutX(0);
         button2.setLayoutY(length / 3.0 * 2.0);
-        button2.setStyle("-fx-font-size: 18px; -fx-font-family: 'Arial'; -fx-text-fill: red;");
+        button2.setStyle("-fx-font-size: 18px; -fx-font-family: 'Arial'; -fx-text-fill: blue;");
         button2.setSelected(false);
         button2.setContentDisplay(ContentDisplay.LEFT);
         button2.setOnAction(e -> {
@@ -87,7 +87,7 @@ public class SetUpScreen
     public ImageView setBackGround()
     {
         String path = "file:\\" + System.getProperty("user.dir") + "/src/GUI/Image";
-        Image image = new Image(path + "//setupBack.jpg");
+        Image image = new Image(path + "//setupBack2.jpg");
         ImageView imageView = new ImageView(image);
         return imageView;
     }
