@@ -347,7 +347,8 @@ public class ChessBoard {
                         if(target_row >= 5)
                         {
                             // 象的移动是有规律的，只能是“走日”移动，即每次移动两个格子，一个方向走一步
-                            if (Math.abs(chess_row - target_row) == 2 && Math.abs(chess_col - target_col) == 2) {
+                            if (Math.abs(chess_row - target_row) == 2 && Math.abs(chess_col - target_col) == 2)
+                            {
                                 int middleRow = (chess_row + target_row) / 2; // 获取象眼的行坐标
                                 int middleCol = (chess_col + target_col) / 2; // 获取象眼的列坐标
                                 // 检查象眼是否被堵住
@@ -355,6 +356,13 @@ public class ChessBoard {
                                     // 象眼没有被堵住，移动合法
                                     return true;
                                 }
+                                else{
+                                    return false;
+                                }
+                            }
+                            else
+                            {
+                                return false;
                             }
                         }
                         else
@@ -375,7 +383,16 @@ public class ChessBoard {
                                     // 象眼没有被堵住，移动合法
                                     return true;
                                 }
+                                else {
+                                    return false;
+                                }
                             }
+                            else {
+                                return false;
+                            }
+                        }
+                        else {
+                            return false;
                         }
                     }
                     else
@@ -429,7 +446,8 @@ public class ChessBoard {
                             {
                                 return false;
                             }
-                        } else {
+                        }
+                        else {
                             // 已过河
                             if (target_row == chess_row + 1 && target_col == chess_col) {
                                 // 向前一步移动
@@ -497,7 +515,7 @@ public class ChessBoard {
             {
                 for(int j = 3; j < 6 && KING_col == -1; j++)
                 {
-                    if(chessboard[i][j].getType() == ChessPieceType.KING)
+                    if(chessboard[i][j] != null && chessboard[i][j].getType() == ChessPieceType.KING)
                     {
                         KING_row = i;
                         KING_col = j;
@@ -514,7 +532,7 @@ public class ChessBoard {
             {
                 for(int j = 3; j < 6 && KING_col == -1; j++)
                 {
-                    if(chessboard[i][j].getType() == ChessPieceType.KING)
+                    if(chessboard[i][j] != null && chessboard[i][j].getType() == ChessPieceType.KING)
                     {
                         KING_row = i;
                         KING_col = j;
