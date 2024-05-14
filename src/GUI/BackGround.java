@@ -5,6 +5,7 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 
 
 public class BackGround
@@ -15,13 +16,18 @@ public class BackGround
     private ForeverButton button1;
     private Button RankingList_Button;
     private Button SetUp_Button;
+    private Button Login_Button;
     private SetUpScreen setUpScreen;
     private Clock clock;
+
+    private Stage primaryStage;
 
 
 
     public BackGround(Head fact)
     {
+        this.primaryStage = fact.getPrimaryStage();
+
         back_pane = new Pane();
         back_pane.setPadding(new Insets(0,0,0,0));
 
@@ -57,13 +63,16 @@ public class BackGround
         button1_pane.setLayoutY(0);
         back_pane.getChildren().add(button1_pane);
 
-        OtherButton otherButton = new OtherButton(this.setUpScreen);
+        OtherButton otherButton = new OtherButton(this.setUpScreen, this.primaryStage);
         //排行榜按钮
         RankingList_Button = otherButton.getRankingList();
         back_pane.getChildren().add(RankingList_Button);
         //设置按钮
         SetUp_Button = otherButton.getSetUp_Button();
         back_pane.getChildren().add(SetUp_Button);
+        //登陆按钮
+        Login_Button = otherButton.getLoginButton();
+        back_pane.getChildren().add(Login_Button);
 
 
 
@@ -81,6 +90,9 @@ public class BackGround
     }
     public Button getSetUp_Button() {
         return SetUp_Button;
+    }
+    public Button getLogin_Button() {
+        return Login_Button;
     }
 
     public Clock getClock() {

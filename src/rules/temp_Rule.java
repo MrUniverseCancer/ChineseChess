@@ -31,9 +31,9 @@ public class temp_Rule
             Pawnplace[x1][y1] = yemp;
         }
         System.out.println(tempTruth);
-//        boolean red = temp.isCheckmate(Pawnplace, 1);
-//        boolean black = temp.isCheckmate(Pawnplace, 0);
-//        System.out.println("red: " + red + " black: " + black);
+        boolean red = temp.isCheckmate(Pawnplace, 1);
+        boolean black = temp.isCheckmate(Pawnplace, 0);
+        System.out.println("red: " + red + " black: " + black);
         return Pawnplace;
     }
 }

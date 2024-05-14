@@ -25,6 +25,7 @@ public class ContestEnd_Handler implements EventHandler<ActionEvent>
         button.setOnAction(new BeginningGame_Handler(head_inst, button));
         head_inst.getBackGround().getRankingList_Button().setVisible(true);
         head_inst.getBackGround().getSetUp_Button().setVisible(true);
+        head_inst.getBackGround().getLogin_Button().setVisible(true);
         head_inst.getBackGround().getClock().getPane().setVisible(false);
     }
 }

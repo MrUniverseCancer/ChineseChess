@@ -4,9 +4,13 @@ import GUI.Handler_Listener.BeginningGame_Handler;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class Head extends Application
@@ -17,12 +21,15 @@ public class Head extends Application
 
     private Pane  Contest_Screen_inst;
 
+    private Stage primaryStage;
+
 
 
     @Override
     public void start(Stage stage)
     {
         //确定背景界面
+        this.primaryStage = stage;
         Pane Back_inst = new Pane();
         backGround = new BackGround(this);
         Back_inst.getChildren().add(backGround.getBack_pane());
@@ -35,6 +42,8 @@ public class Head extends Application
         stage.setScene(scene);
         stage.show();
     }
+
+
 
 
     public void contestScreenInput()
@@ -64,6 +73,9 @@ public class Head extends Application
         return backGround;
     }
 
+    public Stage getPrimaryStage() {
+        return primaryStage;
+    }
 
     public static void main(String[] args)
     {

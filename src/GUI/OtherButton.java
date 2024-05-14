@@ -1,21 +1,48 @@
 package GUI;
 
 
+import GUI.Handler_Listener.Login_Handler;
 import GUI.Handler_Listener.RankingList_Handler;
 import GUI.Handler_Listener.SetUP_Handler;
 import javafx.scene.control.Button;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 
 public class OtherButton
 {
     private Button RankingList_Button;
     private Button SetUp_Button;
+    private Button Login_Button;
     private SetUpScreen setUpScreen;
+
+    private Stage primaryStage;
 
     public OtherButton() {
     }
-    public OtherButton(SetUpScreen setUpScreen)
+    public OtherButton(SetUpScreen setUpScreen,Stage primaryStage )
     {
         this.setUpScreen = setUpScreen;
+        this.primaryStage = primaryStage;
+    }
+
+
+    public Button getLoginButton()
+    {
+        // 创建登陆按钮
+        int x,y;
+        int length = 100;
+        int width  = 50 ;
+        int area = 300;
+        x = (500 - length) / 2;
+        y = (750 - width) - area;
+        Login_Button = new Button("登录");
+        Login_Button.setStyle("-fx-font-size: 18px; -fx-font-family: 'Arial'; -fx-text-fill: grey;");
+        Login_Button.setPrefSize(length,width);
+        Login_Button.setLayoutX(x); // 设置按钮的 x 坐标
+        Login_Button.setLayoutY(y); // 设置按钮的 y 坐标
+
+        Login_Button.setOnAction(new Login_Handler(this.primaryStage));
+        return Login_Button;
     }
 
     public Button getRankingList()

@@ -54,7 +54,6 @@ public class SetUpScreen
         button1.setLayoutY(length / 3.0);
         button1.setStyle("-fx-font-size: 18px; -fx-font-family: 'Arial'; -fx-text-fill: blue;");
         button1.setSelected(true);
-        button1
         button1.setContentDisplay(ContentDisplay.LEFT);
         button1.setOnAction(e -> {
             if(button1.isSelected())
