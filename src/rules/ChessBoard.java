@@ -469,7 +469,41 @@ public class ChessBoard {
         }
     }
 
-    boolean isCheckmate(ChessPiece[][] chessboard, ChessPieceColor color)
+    public boolean isCheckmate(int [][] chessboard, int who)
+    {
+        board = new ChessPiece[10][9];
+        for(int i = 0 ; i < 9 ; i++)
+        {
+            for(int j = 0 ; j < 10 ; j++)
+            {
+                if(chessboard[i][j] == -1)
+                {
+//                    board[i][j] = null;
+                    board[9-j][i] = null;
+                }
+                else
+                {
+                    ChessPieceColor color = (chessboard[i][j] < 7) ? ChessPieceColor.RED : ChessPieceColor.BLACK;
+                    ChessPieceType type = ChessPieceType.KING;
+                    switch (chessboard[i][j] % 7) {
+                        case 0: type = ChessPieceType.KING; break;
+                        case 1: type = ChessPieceType.ADVISOR; break;
+                        case 2: type = ChessPieceType.ELEPHANT; break;
+                        case 3: type = ChessPieceType.HORSE; break;
+                        case 4: type = ChessPieceType.ROOK; break;
+                        case 5: type = ChessPieceType.CANNON; break;
+                        case 6: type = ChessPieceType.PAWN; break;
+                        default:break;
+                    }
+                    board[9-j][i] = new ChessPiece(type, color);
+                }
+            }
+        }
+        ChessPieceColor color = (who == 1) ? ChessPieceColor.RED : ChessPieceColor.BLACK;
+        return isCheckmate(board, color);
+    }
+
+    public boolean isCheckmate(ChessPiece[][] chessboard, ChessPieceColor color)
     {
         int KING_row = -1;
         int KING_col = -1;
