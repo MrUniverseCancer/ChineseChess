@@ -25,7 +25,7 @@ public class AccountManager {
     public static int verifyAccount(String username, String password) {
         try (BufferedReader reader = new BufferedReader(new FileReader(ACCOUNT_FILE_PATH))) {
             String line;
-            while ((line = reader.readLine()) != null) {
+            while ((line = reader.readLine()) != null) {    //查询每个注册了的账户
                 String[] parts = line.split(",");   //parts[1]为账户名,parts[2]为账户密码
                 if (parts.length == 2 && parts[0].equals(username) && parts[1].equals(password)) {
                     return 0;   //验证成功
