@@ -30,11 +30,14 @@ public class LoginScreen
     private PasswordField pass2_1;
     private PasswordField pass2_2;
 
+    private Head head_inst;
+
     private int state;
-    public LoginScreen(Stage stage)
+    public LoginScreen(Stage stage, Head head_inst)
     {
         state = 0;
         this.stage = stage;
+        this.head_inst = head_inst;
         pane = new Pane();
 
         pane.getChildren().add(getLogin());
@@ -236,6 +239,9 @@ public class LoginScreen
                 else if((state = AccountManager.verifyAccount(account, pass)) == 0 )
                 {
                     stage.close();
+                    dataField temp = head_inst.getDataField();
+                    temp.setAccount(account);
+                    head_inst.getBackGround().getLabel().setText("当前用户： " + account );
                 }
                 else
                 {

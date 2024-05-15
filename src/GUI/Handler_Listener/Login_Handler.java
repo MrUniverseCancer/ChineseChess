@@ -1,5 +1,6 @@
 package GUI.Handler_Listener;
 
+import GUI.Head;
 import GUI.LoginScreen;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -11,9 +12,11 @@ import javafx.stage.Stage;
 public class Login_Handler implements EventHandler<ActionEvent>
 {
     private Stage primaryStage;
+    private Head head_inst;
 
-    public Login_Handler(Stage primaryStage) {
+    public Login_Handler(Stage primaryStage, Head head_inst) {
         this.primaryStage = primaryStage;
+        this.head_inst = head_inst;
     }
 
     @Override
@@ -26,7 +29,7 @@ public class Login_Handler implements EventHandler<ActionEvent>
         stage.initModality(Modality.WINDOW_MODAL);
         stage.initOwner(primaryStage);
 
-        LoginScreen loginScreen = new LoginScreen(stage);
+        LoginScreen loginScreen = new LoginScreen(stage, this.head_inst);
         Scene scene = new Scene(loginScreen.getPane(), 450, 600);
         Pane scene_add_root = (Pane) scene.getRoot();
 

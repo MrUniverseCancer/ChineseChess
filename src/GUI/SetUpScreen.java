@@ -11,15 +11,17 @@ public class SetUpScreen
 {
     private Pane SetUp_Pane;
     private int priority;
+    private dataField dataField;
     //红先为1，否则为0；
 
     private int direction;
     public SetUpScreen() {
     }
 
-    public Pane getSetUpScreen()
+    public Pane getSetUpScreen(dataField dataField)
     {
         SetUp_Pane = new Pane();
+        this.dataField = dataField;
         SetUp_Pane.setStyle("-fx-background-color: #f0f8ff;");
         SetUp_Pane.setPrefSize(1250, 750);
         SetUp_Pane.setVisible(false);
@@ -59,6 +61,7 @@ public class SetUpScreen
             if(button1.isSelected())
             {
                 priority = 1;
+                dataField.setDirection(1);
             }
         });
 
@@ -72,6 +75,7 @@ public class SetUpScreen
             if(button2.isSelected())
             {
                 priority = 0;
+                dataField.setDirection(0);
             }
         });
 
@@ -87,7 +91,7 @@ public class SetUpScreen
     public ImageView setBackGround()
     {
         String path = "file:\\" + System.getProperty("user.dir") + "/src/GUI/Image";
-        Image image = new Image(path + "//setupBack2.jpg");
+        Image image = new Image(path + "//setupBack.jpg");
         ImageView imageView = new ImageView(image);
         return imageView;
     }

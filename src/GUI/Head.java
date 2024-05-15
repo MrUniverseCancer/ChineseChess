@@ -23,11 +23,16 @@ public class Head extends Application
 
     private Stage primaryStage;
 
+    private dataField dataField;
+
 
 
     @Override
     public void start(Stage stage)
     {
+        //初始化数据域
+        dataField = new dataField();
+
         //确定背景界面
         this.primaryStage = stage;
         Pane Back_inst = new Pane();
@@ -35,6 +40,7 @@ public class Head extends Application
         Back_inst.getChildren().add(backGround.getBack_pane());
         scene = new Scene(Back_inst,1250, 750);
         Pane scene_add_root = (Pane) scene.getRoot();
+
 
 
         stage.setResizable(false);
@@ -53,7 +59,7 @@ public class Head extends Application
         Contest_Screen_inst.setPrefSize(750, 750);
         Contest_Screen_inst.setTranslateX(500);
         Contest_Screen_inst.setTranslateY(0);
-        ContestScreen contest_inst = new ContestScreen();
+        ContestScreen contest_inst = new ContestScreen(this.dataField);
         Contest_Screen_inst.getChildren().add(contest_inst.getPane());
         Pane scene_add_root = (Pane) scene.getRoot();
         scene_add_root.getChildren().add(Contest_Screen_inst);
@@ -75,6 +81,10 @@ public class Head extends Application
 
     public Stage getPrimaryStage() {
         return primaryStage;
+    }
+
+    public GUI.dataField getDataField() {
+        return dataField;
     }
 
     public static void main(String[] args)

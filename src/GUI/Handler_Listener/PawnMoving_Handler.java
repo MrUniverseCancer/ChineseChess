@@ -7,7 +7,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
-import rules.temp_Rule;
+import javafx.util.Pair;
+import rules.PawnMovingRules;
 
 public class PawnMoving_Handler implements EventHandler<MouseEvent>
 {
@@ -15,12 +16,16 @@ public class PawnMoving_Handler implements EventHandler<MouseEvent>
     private int [][] Pawnplace;
     private int [] last_fact;
     private int state;
+    private int direction;
+    private int color;// 预期行动的颜色 0 ->red   1 -> black
 
-    public PawnMoving_Handler(ContestScreen fact)
+    public PawnMoving_Handler(ContestScreen fact, int direction)
     {
         this.contestScreen_inst = fact;
         this.state = 0;
         this.last_fact = new int[2];
+        this.direction = direction;
+        this.color = fact.getColor();
     }
 
     @Override
@@ -39,16 +44,14 @@ public class PawnMoving_Handler implements EventHandler<MouseEvent>
         if(state == 0)
         {
             //第一次点击
-            if(Pawnplace[fact[0]][fact[1]] != -1)
+            int which = Pawnplace[fact[0]][fact[1]];
+            if(which != -1 && (color == 0 && which < 7) || (color == 1 && which > 6) )
             {
                 //点中棋子
                 last_fact[0] = fact[0];
                 last_fact[1] = fact[1];
                 state = 1;
 
-//                Circle temp = new Circle(20);
-//                temp.setLayoutX(20);
-//                temp.setLayoutY(20);
                 double[] place = reverse_translate(fact[0], fact[1]);
                 Pane decorate = decorate_get();
                 decorate.setLayoutX(place[0]);
@@ -59,9 +62,18 @@ public class PawnMoving_Handler implements EventHandler<MouseEvent>
         else
         {
             //第二次点击
-            Pawnplace = temp_Rule.Check(Pawnplace, last_fact[0], last_fact[1], fact[0], fact[1]);
+            boolean temp = false;
+            Pair<int[][], Boolean> result = PawnMovingRules.Check(Pawnplace, last_fact[0], last_fact[1], fact[0], fact[1], direction);
+            Pawnplace = result.getKey();
+            temp = result.getValue();
+            if(temp)
+            {
+                // TODO:
+                contestScreen_inst.setColor();
+            }
             contestScreen_inst.setPawnplace(Pawnplace);
             state = 0;
+
         }
         System.out.println("state: " + state);
     }

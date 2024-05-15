@@ -15,21 +15,23 @@ public class ContestScreen
 
     private Pawns pawn_inst;
     private int [][] Pawnplace;
+    private int color;
     //9*10的棋盘，以左下为原点计算
     //0-6 为红方王士象马车炮兵
     //7-13为黑方王士象马车炮兵
 
 
 
-    public ContestScreen()
+    public ContestScreen(dataField dataField)
     {
         pane = new Pane();
         pane.setPrefSize(750, 750);
         pawn_inst = new Pawns();
+        color = 0;
 
 
         //装载棋盘
-        direction = 1;
+        direction = dataField.getDirection();
         String path = "file:\\" + System.getProperty("user.dir") + "/src/GUI/Image";
         board1 = new Image(path + "\\board.jpg");
 
@@ -111,7 +113,7 @@ public class ContestScreen
     public void Load_Pawn_with_place(int direction)
     {
         pawn_pane = new Pane();
-        pawn_pane.setOnMouseClicked(new PawnMoving_Handler(this));
+        pawn_pane.setOnMouseClicked(new PawnMoving_Handler(this, direction));
         pane.getChildren().add(pawn_pane);
 
         //direction为1，红正向，反之黑正向
@@ -168,6 +170,14 @@ public class ContestScreen
         Pawnplace = pawnplace;
         pane.getChildren().remove(pawn_pane);
         Load_Pawn_with_place(direction);
+    }
+
+    public int getColor() {
+        return color;
+    }
+
+    public void setColor() {
+        this.color = (this.color == 0) ? 1 : 0;
     }
 
     public int[][] getPawnplace() {

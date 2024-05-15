@@ -1,7 +1,9 @@
 package GUI;
 
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -21,12 +23,17 @@ public class BackGround
     private Clock clock;
 
     private Stage primaryStage;
+    private dataField dataField;
+    private Head head_inst;
+    private Label label;
 
 
 
     public BackGround(Head fact)
     {
         this.primaryStage = fact.getPrimaryStage();
+        this.dataField = fact.getDataField();
+        this.head_inst = fact;
 
         back_pane = new Pane();
         back_pane.setPadding(new Insets(0,0,0,0));
@@ -45,13 +52,22 @@ public class BackGround
 
         back_pane.getChildren().addAll(imageView1, imageView2);
 
+
+        label = new Label("当前用户： " + dataField.getAccount());
+        label.setStyle("-fx-font-size: 40px; -fx-font-family: 'Arial'; -fx-text-fill: grey;");
+        label.setPrefSize(450,50);
+        label.setLayoutX(0);
+        label.setLayoutY(50);
+        label.setAlignment(Pos.CENTER);
+        back_pane.getChildren().add(label);
+
         //时间界面
         clock = new Clock();
         Pane clock_pane = clock.getClock();
         back_pane.getChildren().add(clock_pane);
         //设置界面
         setUpScreen = new SetUpScreen();
-        Pane setUp_pane = setUpScreen.getSetUpScreen();
+        Pane setUp_pane = setUpScreen.getSetUpScreen(head_inst.getDataField());
 
 
 
@@ -63,7 +79,7 @@ public class BackGround
         button1_pane.setLayoutY(0);
         back_pane.getChildren().add(button1_pane);
 
-        OtherButton otherButton = new OtherButton(this.setUpScreen, this.primaryStage);
+        OtherButton otherButton = new OtherButton(this.setUpScreen, this.primaryStage, this.head_inst);
         //排行榜按钮
         RankingList_Button = otherButton.getRankingList();
         back_pane.getChildren().add(RankingList_Button);
@@ -93,6 +109,9 @@ public class BackGround
     }
     public Button getLogin_Button() {
         return Login_Button;
+    }
+    public Label getLabel() {
+        return label;
     }
 
     public Clock getClock() {

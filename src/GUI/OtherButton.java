@@ -16,13 +16,15 @@ public class OtherButton
     private SetUpScreen setUpScreen;
 
     private Stage primaryStage;
+    private Head head_inst;
 
     public OtherButton() {
     }
-    public OtherButton(SetUpScreen setUpScreen,Stage primaryStage )
+    public OtherButton(SetUpScreen setUpScreen, Stage primaryStage,Head head_inst)
     {
         this.setUpScreen = setUpScreen;
         this.primaryStage = primaryStage;
+        this.head_inst = head_inst;
     }
 
 
@@ -41,7 +43,7 @@ public class OtherButton
         Login_Button.setLayoutX(x); // 设置按钮的 x 坐标
         Login_Button.setLayoutY(y); // 设置按钮的 y 坐标
 
-        Login_Button.setOnAction(new Login_Handler(this.primaryStage));
+        Login_Button.setOnAction(new Login_Handler(this.primaryStage, this.head_inst));
         return Login_Button;
     }
 
