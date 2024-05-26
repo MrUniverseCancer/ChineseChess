@@ -265,6 +265,7 @@ public class LoginScreen
                 if(account.isEmpty() || pass1.isEmpty() || pass2.isEmpty())
                 {
                     Reply.setText("禁止为空");
+                    localstate = 5;
                 }
                 else if(pass1.equals(pass2))
                 {

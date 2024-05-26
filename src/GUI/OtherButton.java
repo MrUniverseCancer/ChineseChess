@@ -43,7 +43,7 @@ public class OtherButton
         Login_Button.setLayoutX(x); // 设置按钮的 x 坐标
         Login_Button.setLayoutY(y); // 设置按钮的 y 坐标
 
-        Login_Button.setOnAction(new Login_Handler(this.primaryStage, this.head_inst));
+        Login_Button.setOnAction(new Login_Handler(this.primaryStage, this.head_inst, this.Login_Button));
         return Login_Button;
     }
 
@@ -62,7 +62,7 @@ public class OtherButton
         RankingList_Button.setLayoutX(x); // 设置按钮的 x 坐标
         RankingList_Button.setLayoutY(y); // 设置按钮的 y 坐标
 
-        RankingList_Button.setOnAction(new RankingList_Handler(this.RankingList_Button));
+        RankingList_Button.setOnAction(new RankingList_Handler(this.RankingList_Button, this.primaryStage, this.head_inst));
         return RankingList_Button;
     }
 
