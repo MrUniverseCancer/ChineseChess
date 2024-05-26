@@ -41,4 +41,22 @@ public class AccountManager {
         }
         return -3;  //未查询到该用户的账户
     }
+
+    // 核验是否该用户已注册
+    public static int verifyIfRegistered(String username) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(ACCOUNT_FILE_PATH))) {
+            String line;
+            while ((line = reader.readLine()) != null) {      //查询每个注册了的账户
+                String[] parts = line.split(",");       //parts[1]为账户名,parts[2]为账户密码
+                if (parts.length == 2 && parts[0].equals(username)) {
+                    return 1;   //该用户已注册
+                }
+            }
+        }
+        catch (IOException e) {
+            System.err.println("Error checking account: " + e.getMessage());
+            return -1;  //读取账户信息错误
+        }
+        return 0;  //未查询到该用户的账户
+    }
 }
