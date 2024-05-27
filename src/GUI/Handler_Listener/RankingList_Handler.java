@@ -45,8 +45,6 @@ public class RankingList_Handler implements EventHandler<ActionEvent>
             stage.setTitle("Ranking List");
             stage.setScene(scene);
             stage.show();
-            //显示“查看排行榜”
-            state = 1;
         }
     }
 }

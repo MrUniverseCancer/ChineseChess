@@ -1,10 +1,11 @@
 package GUI;
 
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import rules.RankingListGet;
 
@@ -78,18 +79,40 @@ public class RankingScreen
         // 设计多层文字域，用于展示排行榜数据，最多展示十个，设计滚轮，可以查看更多的排行榜数据
         // 创建一个VBox，用于垂直排列Label
         VBox vbox = new VBox();
+        Label name = new Label("用户名");
+        name.setLayoutX(100);
+        name.setStyle("-fx-font-size: 20px; -fx-font-family: 'Arial'; -fx-text-fill: grey;");
+
+        Label scoreLabel1 = new Label("分数");
+        scoreLabel1.setLayoutX(300);
+        scoreLabel1.setStyle("-fx-font-size: 20px; -fx-font-family: 'Arial'; -fx-text-fill: grey;");
+        Pane head_pane = new Pane();
+        head_pane.getChildren().add(name);
+        head_pane.getChildren().add(scoreLabel1);
+        head_pane.setPrefSize(450, 50);
+        head_pane.setLayoutX(0);
+        vbox.getChildren().add(head_pane);
 
         // 遍历排行榜数据，每个数据创建一个Label，并添加到VBox中
         for (ArrayList<Object> entry : data) {
             String username = (String) entry.get(0);
             Integer score = (Integer) entry.get(1);
-            Label label = new Label(username + ": " + score);
-            label.setStyle("-fx-font-size: 20px; -fx-font-family: 'Arial'; -fx-text-fill: grey;");
-            label.setPrefSize(350, 50);
-            label.setLayoutX(100);
-            // 希望数据居中展示
 
-            vbox.getChildren().add(label);
+            Label nameLabel = new Label(username);
+            nameLabel.setLayoutX(100);
+            nameLabel.setStyle("-fx-font-size: 20px; -fx-font-family: 'Arial'; -fx-text-fill: grey;");
+
+            Label scoreLabel = new Label(score.toString());
+            scoreLabel.setLayoutX(300);
+            scoreLabel.setStyle("-fx-font-size: 20px; -fx-font-family: 'Arial'; -fx-text-fill: grey;");
+
+            Pane temp_pane = new Pane();
+            temp_pane.getChildren().add(nameLabel);
+            temp_pane.getChildren().add(scoreLabel);
+            temp_pane.setPrefSize(450, 50);
+            temp_pane.setLayoutX(0);
+
+            vbox.getChildren().add(temp_pane);
         }
 
         // 创建一个ScrollPane，将VBox放入ScrollPane
@@ -97,7 +120,7 @@ public class RankingScreen
         scrollPane.setContent(vbox);
         scrollPane.setLayoutX(0);
         scrollPane.setLayoutY(100);
-        scrollPane.setPrefSize(450, 500);
+        scrollPane.setPrefSize(450, 400);
 
         // 将ScrollPane添加到RankingListPane
         RankingListPane.getChildren().add(scrollPane);
