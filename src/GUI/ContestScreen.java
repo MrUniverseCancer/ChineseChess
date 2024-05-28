@@ -55,8 +55,14 @@ public class ContestScreen
 
     public void initial_clock()
     {
-        clock.stopPlayer1();
-        clock.continuePlayer2();
+        if(direction == 1)
+        {
+            clock.continuePlayer2();
+        }
+        else
+        {
+            clock.continuePlayer1();
+        }
     }
 
     public void initial_PawnPlace()

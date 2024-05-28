@@ -102,7 +102,6 @@ public class Clock   {
         {
             player1CountEnable = 1;
         }
-
     }
 
     public void continuePlayer2()

@@ -77,10 +77,11 @@ public class PawnMoving_Handler implements EventHandler<MouseEvent>
                 if (temp) {
                     // TODO:
                     contestScreen_inst.setColor();
-                    if (color == 0) {
+                    if ((color == 0 && direction == 1) || (color == 1 && direction == 0)) {
                         clock.continuePlayer1();
                         clock.stopPlayer2();
-                    } else {
+                    }
+                    else if((color == 0 && direction == 0) || (color == 1 && direction == 1) ){
                         clock.continuePlayer2();
                         clock.stopPlayer1();
                     }

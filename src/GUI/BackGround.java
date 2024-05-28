@@ -28,7 +28,6 @@ public class BackGround
     private Label label;
 
 
-
     public BackGround(Head fact)
     {
         this.primaryStage = fact.getPrimaryStage();
