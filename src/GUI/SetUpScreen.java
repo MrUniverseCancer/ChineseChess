@@ -91,7 +91,7 @@ public class SetUpScreen
     public ImageView setBackGround()
     {
         String path = "file:\\" + System.getProperty("user.dir") + "/src/GUI/Image";
-        Image image = new Image(path + "//setupBack.jpg");
+        Image image = new Image(path + "//setupBack2.jpg");
         ImageView imageView = new ImageView(image);
         return imageView;
     }
