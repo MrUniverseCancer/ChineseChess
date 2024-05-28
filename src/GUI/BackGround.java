@@ -72,7 +72,7 @@ public class BackGround
 
 
         //开始按键相关
-        button1 = new ForeverButton(fact);
+        button1 = new ForeverButton(fact, clock);
         Pane button1_pane = button1.getPane();
         button1_pane.setPrefSize(500,750);
         button1_pane.setLayoutX(0);
