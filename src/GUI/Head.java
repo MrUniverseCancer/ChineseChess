@@ -25,6 +25,8 @@ public class Head extends Application
 
     private dataField dataField;
 
+    private PromptImage promptImage;
+    private Pane prompt_pane;
 
 
     @Override
@@ -40,6 +42,11 @@ public class Head extends Application
         Back_inst.getChildren().add(backGround.getBack_pane());
         scene = new Scene(Back_inst,1250, 750);
         Pane scene_add_root = (Pane) scene.getRoot();
+        promptImage = new PromptImage();
+        prompt_pane = promptImage.getPrompt_pane();
+        scene_add_root.getChildren().add(prompt_pane);
+
+
 
 
 
@@ -59,11 +66,12 @@ public class Head extends Application
         Contest_Screen_inst.setPrefSize(750, 750);
         Contest_Screen_inst.setTranslateX(500);
         Contest_Screen_inst.setTranslateY(0);
-        ContestScreen contest_inst = new ContestScreen(this.dataField, backGround.getClock());
+        ContestScreen contest_inst = new ContestScreen(this.dataField, backGround.getClock(), this);
         contest_inst.initial_clock();
         Contest_Screen_inst.getChildren().add(contest_inst.getPane());
         Pane scene_add_root = (Pane) scene.getRoot();
         scene_add_root.getChildren().add(Contest_Screen_inst);
+        prompt_pane.toFront();
     }
 
     public void contestScreenDel()
@@ -86,6 +94,10 @@ public class Head extends Application
 
     public GUI.dataField getDataField() {
         return dataField;
+    }
+
+    public PromptImage getPromptImage() {
+        return promptImage;
     }
 
     public static void main(String[] args)

@@ -7,6 +7,7 @@ import javafx.scene.layout.Pane;
 
 public class ContestScreen
 {
+    private Head head_inst;
     private Pane pane;
     private Image board1;
 
@@ -23,9 +24,10 @@ public class ContestScreen
 
 
 
-    public ContestScreen(dataField dataField, Clock clock)
+    public ContestScreen(dataField dataField, Clock clock, Head head_inst)
     {
         this.clock = clock;
+        this.head_inst = head_inst;
 
         pane = new Pane();
         pane.setPrefSize(750, 750);
@@ -123,7 +125,7 @@ public class ContestScreen
     public void Load_Pawn_with_place(int direction)
     {
         pawn_pane = new Pane();
-        pawn_pane.setOnMouseClicked(new PawnMoving_Handler(this, direction, this.clock));
+        pawn_pane.setOnMouseClicked(new PawnMoving_Handler(this, direction, this.clock, this.head_inst));
         pane.getChildren().add(pawn_pane);
 
         //direction为1，红正向，反之黑正向

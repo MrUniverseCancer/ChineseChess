@@ -12,7 +12,7 @@ import javafx.util.Duration;
 
 
 public class Clock   {
-    private final int clk_reset_value = 10;
+    private final int clk_reset_value = 100;
     private int player1CountEnable = 0;
     private int player2CountEnable = 0;
     private int remainingTime1 = clk_reset_value; // 剩余时间初始值为300秒

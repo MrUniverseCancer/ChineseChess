@@ -2,6 +2,7 @@ package GUI.Handler_Listener;
 
 import GUI.Clock;
 import GUI.ContestScreen;
+import GUI.Head;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -20,8 +21,9 @@ public class PawnMoving_Handler implements EventHandler<MouseEvent>
     private int direction;
     private int color;// 预期行动的颜色 0 ->red   1 -> black
     private Clock clock;
+    private Head head_inst;
 
-    public PawnMoving_Handler(ContestScreen fact, int direction, Clock temp)
+    public PawnMoving_Handler(ContestScreen fact, int direction, Clock temp, Head head_inst)
     {
         this.contestScreen_inst = fact;
         this.state = 0;
@@ -29,6 +31,7 @@ public class PawnMoving_Handler implements EventHandler<MouseEvent>
         this.direction = direction;
         this.color = fact.getColor();
         this.clock = temp;
+        this.head_inst = head_inst;
     }
 
     @Override
@@ -71,27 +74,36 @@ public class PawnMoving_Handler implements EventHandler<MouseEvent>
             {
                 //第二次点击
                 boolean temp = false;
-                Pair<int[][], Boolean> result = PawnMovingRules.Check(Pawnplace, last_fact[0], last_fact[1], fact[0], fact[1], direction);
+                Pair<int[][], Boolean> result = PawnMovingRules.Check(Pawnplace, last_fact[0], last_fact[1], fact[0], fact[1], direction, head_inst);
                 Pawnplace = result.getKey();
                 temp = result.getValue();
-                if (temp) {
+                if (temp)
+                {
                     // TODO:
                     contestScreen_inst.setColor();
-                    if (color == 0) {
+                    if (color == 0)
+                    {
                         clock.continuePlayer1();
                         clock.stopPlayer2();
-                    } else {
+                    }
+                    else {
                         clock.continuePlayer2();
                         clock.stopPlayer1();
                     }
                 }
+                else
+                {
+                    head_inst.getPromptImage().setPrompt_label("Illegal Move");
+                }
                 contestScreen_inst.setPawnplace(Pawnplace);
+
             }
             state = 0;
             //比较粗糙的结束方式
         }
         System.out.println("state: " + state);
     }
+
 
 
     public int [] coordinates_translate(double x, double y)
