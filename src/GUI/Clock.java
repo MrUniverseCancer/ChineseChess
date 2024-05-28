@@ -12,14 +12,27 @@ import javafx.util.Duration;
 
 
 public class Clock   {
-
-    private int remainingTime1 = 300; // 剩余时间初始值为300秒
-    private int remainingTime2 = 300; // 剩余时间初始值为300秒
+    private final int clk_reset_value = 10;
+    private int player1CountEnable = 0;
+    private int player2CountEnable = 0;
+    private int remainingTime1 = clk_reset_value; // 剩余时间初始值为300秒
+    private int remainingTime2 = clk_reset_value; // 剩余时间初始值为300秒
+    private boolean countEnd;
     private Label timerLabel1;
     private Label timerLabel2;
     private Pane Pane;
 
+    public void resetTimer()
+    {
+        remainingTime1 = clk_reset_value;
+        remainingTime2 = clk_reset_value;
+        countEnd = false;
+    }
 
+    public boolean getIsEnd()
+    {
+        return countEnd;
+    }
     public Pane getClock()
     {
         int length = 600;
@@ -62,20 +75,81 @@ public class Clock   {
         return Pane;
     }
 
-    // 更新剩余时间
-    private void updateTimer() {
-        remainingTime1--;
-        if (remainingTime1 >= 0) {
-            timerLabel1.setText(formatTime(remainingTime1));
-        } else {
-            timerLabel1.setText("时间到!");
+    public void stopCount()
+    {
+        player1CountEnable = 0;
+        player2CountEnable = 0;
+        remainingTime1 = clk_reset_value;
+        remainingTime2 = clk_reset_value;
+        countEnd = true;
+        timerLabel1.setText(formatTime(remainingTime1));
+        timerLabel2.setText(formatTime(remainingTime2));
+    }
+
+    public void stopPlayer1()
+    {
+        player1CountEnable = 0;
+    }
+
+    public void stopPlayer2()
+    {
+        player2CountEnable = 0;
+    }
+
+    public void continuePlayer1()
+    {
+        if(!countEnd)
+        {
+            player1CountEnable = 1;
         }
 
-        remainingTime2--;
-        if (remainingTime2 >= 0) {
-            timerLabel2.setText(formatTime(remainingTime2));
-        } else {
-            timerLabel2.setText("时间到!");
+    }
+
+    public void continuePlayer2()
+    {
+        if(!countEnd)
+        {
+            player2CountEnable = 1;
+        }
+    }
+
+    // 更新剩余时间
+    private void updateTimer() {
+        if (player1CountEnable == 1) {
+            if(!countEnd)
+            {
+                remainingTime1--;
+            }
+
+            if(remainingTime1 < 0) {
+                countEnd = true;
+                stopPlayer1();
+            }
+
+            if (!countEnd) {
+                timerLabel1.setText(formatTime(remainingTime1));
+            }
+            else {
+                timerLabel1.setText("时间到！");
+            }
+        }
+        if (player2CountEnable == 1){
+            if(!countEnd)
+            {
+                remainingTime2--;
+            }
+
+            if(remainingTime2 < 0) {
+                countEnd = true;
+                stopPlayer2();
+            }
+
+            if (!countEnd) {
+                timerLabel2.setText(formatTime(remainingTime2));
+            }
+            else {
+                timerLabel2.setText("时间到！");
+            }
         }
     }
 

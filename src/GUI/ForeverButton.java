@@ -11,9 +11,11 @@ public class ForeverButton
 {
     private Pane pane;
     private Button button;
+    private Clock clock;
 
-    public ForeverButton(Head fact)
+    public ForeverButton(Head fact, Clock clock)
     {
+        this.clock = clock;
         // 创建 Pane
         pane = new Pane();
         pane.setPrefSize(500, 750);
@@ -33,7 +35,7 @@ public class ForeverButton
 
         // 将按钮添加到 Pane 中
         pane.getChildren().add(button);
-        button.setOnAction(new BeginningGame_Handler(fact, button));
+        button.setOnAction(new BeginningGame_Handler(fact, button, clock));
     }
 
     public Pane getPane() {

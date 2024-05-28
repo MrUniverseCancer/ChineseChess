@@ -12,7 +12,6 @@ public class ContestScreen
 
     private int direction;
     private Pane pawn_pane;
-
     private Pawns pawn_inst;
     private int [][] Pawnplace;
     private int color;
@@ -20,10 +19,14 @@ public class ContestScreen
     //0-6 为红方王士象马车炮兵
     //7-13为黑方王士象马车炮兵
 
+    private Clock clock;
 
 
-    public ContestScreen(dataField dataField)
+
+    public ContestScreen(dataField dataField, Clock clock)
     {
+        this.clock = clock;
+
         pane = new Pane();
         pane.setPrefSize(750, 750);
         pawn_inst = new Pawns();
@@ -44,10 +47,17 @@ public class ContestScreen
         //装载棋子.位置
         Pawnplace = new int[9][10];
         initial_PawnPlace();
+        initial_clock();
         //装载棋盘.棋子.通过位置
         Load_Pawn_with_place(direction);
     }
 
+
+    public void initial_clock()
+    {
+        clock.stopPlayer1();
+        clock.continuePlayer2();
+    }
 
     public void initial_PawnPlace()
     {
@@ -113,7 +123,7 @@ public class ContestScreen
     public void Load_Pawn_with_place(int direction)
     {
         pawn_pane = new Pane();
-        pawn_pane.setOnMouseClicked(new PawnMoving_Handler(this, direction));
+        pawn_pane.setOnMouseClicked(new PawnMoving_Handler(this, direction, this.clock));
         pane.getChildren().add(pawn_pane);
 
         //direction为1，红正向，反之黑正向

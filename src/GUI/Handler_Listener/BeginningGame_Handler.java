@@ -1,5 +1,6 @@
 package GUI.Handler_Listener;
 
+import GUI.Clock;
 import GUI.Head;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -11,15 +12,16 @@ public class BeginningGame_Handler implements EventHandler<ActionEvent>
 {
     private Head head_inst;
     private Button button;
-
+    private Clock clock;
     public BeginningGame_Handler (Head fact)
     {
         head_inst = fact;
     }
 
-    public BeginningGame_Handler(Head fact, Button button) {
+    public BeginningGame_Handler(Head fact, Button button, Clock clock) {
         this(fact);
         this.button = button;
+        this.clock = clock;
     }
 
     @Override
@@ -27,9 +29,10 @@ public class BeginningGame_Handler implements EventHandler<ActionEvent>
     {
         //开始比赛对应的逻辑
         System.out.println("Game Begin");
+        clock.resetTimer();
         head_inst.contestScreenInput();
         button.setText("中止比赛");
-        button.setOnAction(new ContestEnd_Handler(head_inst,button));
+        button.setOnAction(new ContestEnd_Handler(head_inst,button,clock));
 
         //将排行榜选项，设置选项设为不可见
         head_inst.getBackGround().getRankingList_Button().setVisible(false);

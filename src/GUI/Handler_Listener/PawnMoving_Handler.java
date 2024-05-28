@@ -1,5 +1,6 @@
 package GUI.Handler_Listener;
 
+import GUI.Clock;
 import GUI.ContestScreen;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
@@ -18,14 +19,16 @@ public class PawnMoving_Handler implements EventHandler<MouseEvent>
     private int state;
     private int direction;
     private int color;// 预期行动的颜色 0 ->red   1 -> black
+    private Clock clock;
 
-    public PawnMoving_Handler(ContestScreen fact, int direction)
+    public PawnMoving_Handler(ContestScreen fact, int direction, Clock temp)
     {
         this.contestScreen_inst = fact;
         this.state = 0;
         this.last_fact = new int[2];
         this.direction = direction;
         this.color = fact.getColor();
+        this.clock = temp;
     }
 
     @Override
@@ -43,37 +46,49 @@ public class PawnMoving_Handler implements EventHandler<MouseEvent>
         System.out.println("state: " + state);
         if(state == 0)
         {
-            //第一次点击
-            int which = Pawnplace[fact[0]][fact[1]];
-            if(which != -1 && (color == 0 && which < 7) || (color == 1 && which > 6) )
+            if(!clock.getIsEnd())
             {
-                //点中棋子
-                last_fact[0] = fact[0];
-                last_fact[1] = fact[1];
-                state = 1;
+                //第一次点击
+                int which = Pawnplace[fact[0]][fact[1]];
+                if(which != -1 && (color == 0 && which < 7) || (color == 1 && which > 6) )
+                {
+                    //点中棋子
+                    last_fact[0] = fact[0];
+                    last_fact[1] = fact[1];
+                    state = 1;
 
-                double[] place = reverse_translate(fact[0], fact[1]);
-                Pane decorate = decorate_get();
-                decorate.setLayoutX(place[0]);
-                decorate.setLayoutY(place[1]);
-                contestScreen_inst.setPawn_pane(decorate);
+                    double[] place = reverse_translate(fact[0], fact[1]);
+                    Pane decorate = decorate_get();
+                    decorate.setLayoutX(place[0]);
+                    decorate.setLayoutY(place[1]);
+                    contestScreen_inst.setPawn_pane(decorate);
+                }
             }
         }
         else
         {
-            //第二次点击
-            boolean temp = false;
-            Pair<int[][], Boolean> result = PawnMovingRules.Check(Pawnplace, last_fact[0], last_fact[1], fact[0], fact[1], direction);
-            Pawnplace = result.getKey();
-            temp = result.getValue();
-            if(temp)
+            if(!clock.getIsEnd())    //计时结束了，不能再进行移动
             {
-                // TODO:
-                contestScreen_inst.setColor();
+                //第二次点击
+                boolean temp = false;
+                Pair<int[][], Boolean> result = PawnMovingRules.Check(Pawnplace, last_fact[0], last_fact[1], fact[0], fact[1], direction);
+                Pawnplace = result.getKey();
+                temp = result.getValue();
+                if (temp) {
+                    // TODO:
+                    contestScreen_inst.setColor();
+                    if (color == 0) {
+                        clock.continuePlayer1();
+                        clock.stopPlayer2();
+                    } else {
+                        clock.continuePlayer2();
+                        clock.stopPlayer1();
+                    }
+                }
+                contestScreen_inst.setPawnplace(Pawnplace);
             }
-            contestScreen_inst.setPawnplace(Pawnplace);
             state = 0;
-
+            //比较粗糙的结束方式
         }
         System.out.println("state: " + state);
     }
