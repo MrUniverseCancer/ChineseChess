@@ -96,7 +96,8 @@ public class PawnMoving_Handler implements EventHandler<MouseEvent>
                     head_inst.getPromptImage().setPrompt_label("Illegal Move");
                 }
                 contestScreen_inst.setPawnplace(Pawnplace);
-
+                String move = PawnMovingRules.getMove();
+                System.out.println(move);
             }
             state = 0;
             //比较粗糙的结束方式

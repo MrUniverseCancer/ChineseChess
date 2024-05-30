@@ -129,6 +129,7 @@ public class ChessBoard {
                 }
             }
         }
+        record(board,9 - chess_col, chess_row, 9 - target_col, target_row);
         return Move_Check(board,9 - chess_col, chess_row, 9 - target_col, target_row, direction);
     }
 
@@ -589,5 +590,9 @@ public class ChessBoard {
             // 按指定格式生成移动记录
             current_move_record += String.format("%s: %d行%d列 -> %d行%d列", pieceName, chess_row, chess_col, target_row, target_col);
         }
+    }
+
+    public String getCurrent_move_record() {
+        return current_move_record;
     }
 }

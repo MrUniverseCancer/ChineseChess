@@ -55,4 +55,8 @@ public class PawnMovingRules
         }
         return temp;
     }
+    public static String getMove()
+    {
+        return temp.getCurrent_move_record();
+    }
 }
