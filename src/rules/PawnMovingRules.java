@@ -18,11 +18,11 @@ public class PawnMovingRules
         boolean tempTruth;
         if( direction == 0)
         {
-            tempTruth = temp.Move_Check(reverse(Pawnplace), 8-x, 9-y, 8-x1, 9-y1);
+            tempTruth = temp.Move_Check(reverse(Pawnplace), 8-x, 9-y, 8-x1, 9-y1, direction);
         }
         else
         {
-            tempTruth = temp.Move_Check((Pawnplace), x, y, x1, y1);
+            tempTruth = temp.Move_Check((Pawnplace), x, y, x1, y1, direction);
         }
         if(tempTruth)
         {
