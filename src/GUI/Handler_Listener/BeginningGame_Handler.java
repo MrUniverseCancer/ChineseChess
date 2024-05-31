@@ -38,7 +38,8 @@ public class BeginningGame_Handler implements EventHandler<ActionEvent>
         head_inst.getBackGround().getRankingList_Button().setVisible(false);
         head_inst.getBackGround().getSetUp_Button().setVisible(false);
         head_inst.getBackGround().getLogin_Button().setVisible(false);
-        //将时钟设为可见
+        //将时钟和排行榜设为可见
         head_inst.getBackGround().getClock().getPane().setVisible(true);
+        head_inst.getBackGround().getRecode_pane().setVisible(true);
     }
 }

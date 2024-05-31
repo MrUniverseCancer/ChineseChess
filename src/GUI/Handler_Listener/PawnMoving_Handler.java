@@ -73,6 +73,7 @@ public class PawnMoving_Handler implements EventHandler<MouseEvent>
             if(!clock.getIsEnd())    //计时结束了，不能再进行移动
             {
                 //第二次点击
+                String move;
                 boolean temp = false;
                 Pair<int[][], Boolean> result = PawnMovingRules.Check(Pawnplace, last_fact[0], last_fact[1], fact[0], fact[1], direction, head_inst);
                 Pawnplace = result.getKey();
@@ -90,13 +91,15 @@ public class PawnMoving_Handler implements EventHandler<MouseEvent>
                         clock.continuePlayer2();
                         clock.stopPlayer1();
                     }
+                    move = PawnMovingRules.getMove();
                 }
                 else
                 {
                     head_inst.getPromptImage().setPrompt_label("Illegal Move");
+                    move = "Illegal Move";
                 }
                 contestScreen_inst.setPawnplace(Pawnplace);
-                String move = PawnMovingRules.getMove();
+                head_inst.getBackGround().getGameRecoder().addMove(move);
                 System.out.println(move);
             }
             state = 0;

@@ -31,5 +31,7 @@ public class ContestEnd_Handler implements EventHandler<ActionEvent>
         head_inst.getBackGround().getSetUp_Button().setVisible(true);
         head_inst.getBackGround().getLogin_Button().setVisible(true);
         head_inst.getBackGround().getClock().getPane().setVisible(false);
+        head_inst.getBackGround().getRecode_pane().setVisible(false);
+        head_inst.getBackGround().getGameRecoder().clearMoves();
     }
 }

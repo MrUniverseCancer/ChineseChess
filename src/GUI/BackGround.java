@@ -4,6 +4,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -26,6 +27,9 @@ public class BackGround
     private dataField dataField;
     private Head head_inst;
     private Label label;
+
+    private GameRecoder gameRecoder;
+    private ScrollPane recode_pane;
 
 
 
@@ -68,6 +72,11 @@ public class BackGround
         //设置界面
         setUpScreen = new SetUpScreen();
         Pane setUp_pane = setUpScreen.getSetUpScreen(head_inst.getDataField());
+
+        // 记录界面
+        gameRecoder = new GameRecoder();
+        recode_pane = gameRecoder.getScrollPane();
+        back_pane.getChildren().add(recode_pane);
 
 
 
@@ -112,6 +121,14 @@ public class BackGround
     }
     public Label getLabel() {
         return label;
+    }
+
+    public ScrollPane getRecode_pane() {
+        return recode_pane;
+    }
+
+    public GameRecoder getGameRecoder() {
+        return gameRecoder;
     }
 
     public Clock getClock() {
