@@ -101,6 +101,7 @@ public class ChessBoard {
 
     public boolean Move_Check(int[][] chessboard, int chess_row, int chess_col, int target_row, int target_col, int direction)
     {
+        this.direction = direction;
         board = new ChessPiece[10][9];
         for(int i = 0 ; i < 9 ; i++)
         {
@@ -130,12 +131,11 @@ public class ChessBoard {
             }
         }
         record(board,9 - chess_col, chess_row, 9 - target_col, target_row);
-        return Move_Check(board,9 - chess_col, chess_row, 9 - target_col, target_row, direction);
+        return Move_Check(board,9 - chess_col, chess_row, 9 - target_col, target_row);
     }
 
-    public boolean Move_Check(ChessPiece[][] chessboard, int chess_row, int chess_col, int target_row, int target_col, int direction)
+    public boolean Move_Check(ChessPiece[][] chessboard, int chess_row, int chess_col, int target_row, int target_col)
     {
-        this.direction = direction;
         if(chessboard[chess_row][chess_col] == null)
         {
             //没有棋子，加上对应事件的触发
@@ -555,7 +555,7 @@ public class ChessBoard {
             for (int j = 0; j < 9; j++) {
                 if (chessboard[i][j] != null && chessboard[i][j].getColor() != color) {
                     // 移动当前棋子，判断是否能够将对方的将/帅
-                    if (Move_Check(chessboard, i, j, KING_row, KING_col, direction)) {
+                    if (Move_Check(chessboard, i, j, KING_row, KING_col)) {
                         // 存在可以将对方的将/帅，不算被将军
                         return true;
                     }
@@ -581,14 +581,21 @@ public class ChessBoard {
     private void record(ChessPiece[][] chessboard, int chess_row, int chess_col, int target_row, int target_col)
     {
         current_move_record = "";       //清空移动记录字符串
-        if (!Move_Check(chessboard, chess_row, chess_col, target_row, target_col, direction)) {
+        if (!Move_Check(chessboard, chess_row, chess_col, target_row, target_col)) {
             return;
         } else {
             // 获取移动的棋子名称
             String pieceName = getPieceName(chessboard[chess_row][chess_col]);
 
             // 按指定格式生成移动记录
-            current_move_record += String.format("%s: %d行%d列 -> %d行%d列", pieceName, chess_row, chess_col, target_row, target_col);
+            if(direction == 1)  //红方在下
+            {
+                current_move_record += String.format("%s: %d行%d列 -> %d行%d列", pieceName, chess_row + 1, chess_col + 1, target_row + 1, target_col + 1);
+            }
+            else
+            {
+                current_move_record += String.format("%s: %d行%d列 -> %d行%d列", pieceName, 10 - chess_row, 9 - chess_col, 10 - target_row, 9 - target_col);
+            }
         }
     }
 
