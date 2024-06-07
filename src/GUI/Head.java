@@ -1,6 +1,7 @@
 package GUI;
 
 import GUI.Handler_Listener.BeginningGame_Handler;
+import GUI.Handler_Listener.ContestEnd_Handler;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -27,6 +28,8 @@ public class Head extends Application
 
     private PromptImage promptImage;
     private Pane prompt_pane;
+
+    private ContestEnd_Handler contestEnd_handler;
 
 
     @Override
@@ -79,6 +82,16 @@ public class Head extends Application
         //删去比赛界面以及记录
         Pane scene_add_root = (Pane) scene.getRoot();
         scene_add_root.getChildren().remove(Contest_Screen_inst);
+    }
+
+    public void EndHandlerInitial(Button button, Clock clock)
+    {
+        contestEnd_handler = new ContestEnd_Handler(this, button, clock);
+        return ;
+    }
+
+    public ContestEnd_Handler getContestEnd_handler() {
+        return contestEnd_handler;
     }
 
     public Pane getContest_Screen_inst() {

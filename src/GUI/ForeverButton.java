@@ -36,6 +36,8 @@ public class ForeverButton
         // 将按钮添加到 Pane 中
         pane.getChildren().add(button);
         button.setOnAction(new BeginningGame_Handler(fact, button, clock));
+
+        fact.EndHandlerInitial(button, clock);
     }
 
     public Pane getPane() {

@@ -10,7 +10,7 @@ import javafx.scene.paint.Color;
 
 public class GameRecoder
 {
-    private static final int MAX_MOVES = 15;
+    private static final int MAX_MOVES = 12;
     private TextArea movesTextArea;
     private ScrollPane scrollPane;
     private VBox vbox;
