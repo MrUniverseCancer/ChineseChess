@@ -77,7 +77,6 @@ public class PawnMoving_Handler implements EventHandler<MouseEvent>
                 boolean temp = false;
                 Pair<int[][], Boolean> result = PawnMovingRules.Check(Pawnplace, last_fact[0], last_fact[1], fact[0], fact[1], direction, head_inst);
                 Pawnplace = result.getKey();
-                CheckEND(Pawnplace);
                 temp = result.getValue();
                 if (temp)
                 {
@@ -101,6 +100,7 @@ public class PawnMoving_Handler implements EventHandler<MouseEvent>
                 }
                 contestScreen_inst.setPawnplace(Pawnplace);
                 head_inst.getBackGround().getGameRecoder().addMove(move);
+                CheckEND(Pawnplace);
                 System.out.println(move);
             }
             state = 0;
@@ -132,15 +132,17 @@ public class PawnMoving_Handler implements EventHandler<MouseEvent>
         {
             head_inst.getPromptImage().setPrompt_label("Black Win");
             move = "Black Win";
-            head_inst.getContestEnd_handler().handle(null);
         }
         else if(black == 0)
         {
             head_inst.getPromptImage().setPrompt_label("Red Win");
             move = "Red Win";
-            head_inst.getContestEnd_handler().handle(null);
         }
         head_inst.getBackGround().getGameRecoder().addMove(move);
+        if( red == 0 || black == 0)
+        {
+            head_inst.getContestEnd_handler().SelfEND();
+        }
     }
 
     public int [] coordinates_translate(double x, double y)

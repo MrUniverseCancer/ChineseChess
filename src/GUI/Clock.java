@@ -85,6 +85,12 @@ public class Clock   {
         timerLabel1.setText(formatTime(remainingTime1));
         timerLabel2.setText(formatTime(remainingTime2));
     }
+    public void stopOnly()
+    {
+        player1CountEnable = 0;
+        player2CountEnable = 0;
+    }
+
 
     public void stopPlayer1()
     {
