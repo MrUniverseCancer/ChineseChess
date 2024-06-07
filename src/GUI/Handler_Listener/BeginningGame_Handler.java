@@ -29,7 +29,7 @@ public class BeginningGame_Handler implements EventHandler<ActionEvent>
     {
         //开始比赛对应的逻辑
         System.out.println("Game Begin");
-        clock.resetTimer();
+        clock.resetTimer(head_inst);
         head_inst.contestScreenInput();
         button.setText("中止比赛");
         button.setOnAction(new ContestEnd_Handler(head_inst,button,clock));
