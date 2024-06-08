@@ -33,6 +33,10 @@ public class SetUpScreen
         SetUp_Pane.getChildren().add(return_Button);
         Pane userPriority = setPriority();
         SetUp_Pane.getChildren().add(userPriority);
+        Pane gametime = Gametime();
+        SetUp_Pane.getChildren().add(gametime);
+        Pane accountPriority = accountPriority();
+        SetUp_Pane.getChildren().add(accountPriority);
 
 
 
@@ -86,6 +90,104 @@ public class SetUpScreen
         group.getToggles().addAll(button1, button2);
 
         return userPriority;
+    }
+
+    public Pane accountPriority()
+    {
+        int length = 200;
+        Pane accountPriority = new Pane();
+        ToggleGroup group = new ToggleGroup();
+
+        Label label = new Label("选择账户对应颜色");
+        label.setStyle("-fx-font-size: 18px; -fx-font-family: 'Arial'; -fx-text-fill: purple;");
+        label.setLayoutX(0);
+        label.setLayoutY(0);
+
+
+        RadioButton button1 = new RadioButton("绑定红方");
+        button1.setLayoutX(0);
+        button1.setLayoutY(length / 3.0);
+        button1.setStyle("-fx-font-size: 18px; -fx-font-family: 'Arial'; -fx-text-fill: purple;");
+        button1.setSelected(true);
+        button1.setContentDisplay(ContentDisplay.LEFT);
+        button1.setOnAction(e -> {
+            if(button1.isSelected())
+            {
+                priority = 1;
+                dataField.setAccountManager(1);
+            }
+        });
+
+        RadioButton button2 = new RadioButton("绑定黑方");
+        button2.setLayoutX(0);
+        button2.setLayoutY(length / 3.0 * 2.0);
+        button2.setStyle("-fx-font-size: 18px; -fx-font-family: 'Arial'; -fx-text-fill: purple;");
+        button2.setSelected(false);
+        button2.setContentDisplay(ContentDisplay.LEFT);
+        button2.setOnAction(e -> {
+            if(button2.isSelected())
+            {
+                priority = 0;
+                dataField.setAccountManager(0);
+            }
+        });
+
+        accountPriority.setPrefSize(100, length);
+        accountPriority.getChildren().addAll(label, button1, button2);
+        accountPriority.setLayoutX(300);
+        accountPriority.setLayoutY(300);
+        group.getToggles().addAll(button1, button2);
+
+        return accountPriority;
+    }
+
+    public Pane Gametime()
+    {
+        int length = 200;
+        Pane gametime = new Pane();
+        ToggleGroup group = new ToggleGroup();
+
+        Label label = new Label("选择比赛时长（秒）");
+        label.setStyle("-fx-font-size: 18px; -fx-font-family: 'Arial'; -fx-text-fill: purple;");
+        label.setLayoutX(0);
+        label.setLayoutY(0);
+
+
+        RadioButton button1 = new RadioButton("红下");
+        button1.setLayoutX(0);
+        button1.setLayoutY(length / 3.0);
+        button1.setStyle("-fx-font-size: 18px; -fx-font-family: 'Arial'; -fx-text-fill: purple;");
+        button1.setSelected(true);
+        button1.setContentDisplay(ContentDisplay.LEFT);
+        button1.setOnAction(e -> {
+            if(button1.isSelected())
+            {
+                priority = 1;
+                dataField.setDirection(1);
+            }
+        });
+
+        RadioButton button2 = new RadioButton("黑下");
+        button2.setLayoutX(0);
+        button2.setLayoutY(length / 3.0 * 2.0);
+        button2.setStyle("-fx-font-size: 18px; -fx-font-family: 'Arial'; -fx-text-fill: purple;");
+        button2.setSelected(false);
+        button2.setContentDisplay(ContentDisplay.LEFT);
+        button2.setOnAction(e -> {
+            if(button2.isSelected())
+            {
+                priority = 0;
+                dataField.setDirection(0);
+            }
+        });
+
+        gametime.setPrefSize(100, length);
+        gametime.getChildren().addAll(label, button1, button2);
+        gametime.setLayoutX(600);
+        gametime.setLayoutY(300);
+        group.getToggles().addAll(button1, button2);
+
+        return gametime;
     }
 
     public ImageView setBackGround()
