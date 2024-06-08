@@ -70,7 +70,6 @@ public class Head extends Application
         Contest_Screen_inst.setTranslateX(500);
         Contest_Screen_inst.setTranslateY(0);
         ContestScreen contest_inst = new ContestScreen(this.dataField, backGround.getClock(), this);
-        contest_inst.initial_clock();
         Contest_Screen_inst.getChildren().add(contest_inst.getPane());
         Pane scene_add_root = (Pane) scene.getRoot();
         scene_add_root.getChildren().add(Contest_Screen_inst);

@@ -49,16 +49,8 @@ public class ContestScreen
         //装载棋子.位置
         Pawnplace = new int[9][10];
         initial_PawnPlace();
-        initial_clock();
         //装载棋盘.棋子.通过位置
         Load_Pawn_with_place(direction);
-    }
-
-
-    public void initial_clock()
-    {
-        clock.stopPlayer1();
-        clock.continuePlayer2();
     }
 
     public void initial_PawnPlace()

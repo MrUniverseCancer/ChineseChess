@@ -30,7 +30,7 @@ public class Clock   {
         remainingTime2 = clk_reset_value;
         countEnd = false;
         direction = head_inst.getDataField().getDirection();
-        if(direction == 1)
+        if(direction == 0)
         {
             continuePlayer1();
             stopPlayer2();
