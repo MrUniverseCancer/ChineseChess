@@ -2,6 +2,7 @@ package rules;
 
 
 import java.io.*;
+import java.nio.Buffer;
 
 public class AccountManager {
     private static final String ACCOUNT_FILE_PATH = "accounts.txt"; //存储账户信息的文件
@@ -59,4 +60,62 @@ public class AccountManager {
         }
         return 0;  //未查询到该用户的账户
     }
+
+    public static void changeAccountScore(String username, int score) {
+        File inputFile = new File(ACCOUNT_FILE_PATH);
+        File tempFile = new File("accounts_temp.txt");
+
+        boolean userFound = false;
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+             BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(",");
+                if (parts.length == 3 && parts[0].equals(username)) {
+                    int currentScore = Integer.parseInt(parts[2]);
+                    long newScore = (long) currentScore + score;  // 使用long避免溢出
+                    if (newScore >= 0 && newScore <= Integer.MAX_VALUE) {
+                        parts[2] = String.valueOf((int) newScore);
+                        userFound = true;
+                    } else {
+                        System.err.println("Score update out of valid range for user: " + username);
+                        writer.write(line);  // 将原始行写回
+                        writer.newLine();
+                        continue;
+                    }
+                }
+                writer.write(String.join(",", parts));
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            System.err.println("Error processing accounts: " + e.getMessage());
+            return;
+        }
+
+        if (!userFound) {
+            System.err.println("User not found: " + username);
+            tempFile.delete();  // 删除临时文件
+            return;
+        }
+
+        // 覆盖原始文件
+        try (BufferedReader reader = new BufferedReader(new FileReader(tempFile));
+             BufferedWriter writer = new BufferedWriter(new FileWriter(inputFile))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                writer.write(line);
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            System.err.println("Error writing accounts: " + e.getMessage());
+            return;
+        }
+
+        // 删除临时文件
+        if (!tempFile.delete()) {
+            System.err.println("Could not delete temporary file");
+        }
+    }
+
 }
