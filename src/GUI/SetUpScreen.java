@@ -147,37 +147,37 @@ public class SetUpScreen
         Pane gametime = new Pane();
         ToggleGroup group = new ToggleGroup();
 
-        Label label = new Label("选择比赛时长（秒）");
-        label.setStyle("-fx-font-size: 18px; -fx-font-family: 'Arial'; -fx-text-fill: purple;");
+        Label label = new Label("选择比赛时长");
+        label.setStyle("-fx-font-size: 18px; -fx-font-family: 'Arial'; -fx-text-fill: yellow;");
         label.setLayoutX(0);
         label.setLayoutY(0);
 
 
-        RadioButton button1 = new RadioButton("红下");
+        RadioButton button1 = new RadioButton("15分钟经典赛制");
         button1.setLayoutX(0);
         button1.setLayoutY(length / 3.0);
-        button1.setStyle("-fx-font-size: 18px; -fx-font-family: 'Arial'; -fx-text-fill: purple;");
+        button1.setStyle("-fx-font-size: 18px; -fx-font-family: 'Arial'; -fx-text-fill: yellow;");
         button1.setSelected(true);
         button1.setContentDisplay(ContentDisplay.LEFT);
         button1.setOnAction(e -> {
             if(button1.isSelected())
             {
                 priority = 1;
-                dataField.setDirection(1);
+                dataField.setTime(1);
             }
         });
 
-        RadioButton button2 = new RadioButton("黑下");
+        RadioButton button2 = new RadioButton("5分钟急速赛制");
         button2.setLayoutX(0);
         button2.setLayoutY(length / 3.0 * 2.0);
-        button2.setStyle("-fx-font-size: 18px; -fx-font-family: 'Arial'; -fx-text-fill: purple;");
+        button2.setStyle("-fx-font-size: 18px; -fx-font-family: 'Arial'; -fx-text-fill: yellow;");
         button2.setSelected(false);
         button2.setContentDisplay(ContentDisplay.LEFT);
         button2.setOnAction(e -> {
             if(button2.isSelected())
             {
                 priority = 0;
-                dataField.setDirection(0);
+                dataField.setTime(0);
             }
         });
 

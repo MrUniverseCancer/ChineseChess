@@ -30,19 +30,25 @@ public class Head extends Application
     private Pane prompt_pane;
 
     private ContestEnd_Handler contestEnd_handler;
+    private Clock clock;
 
 
     @Override
     public void start(Stage stage)
     {
+        //初始化时钟
+        clock = new Clock();
+
         //初始化数据域
-        dataField = new dataField();
+        dataField = new dataField(clock);
 
         //确定背景界面
         this.primaryStage = stage;
         Pane Back_inst = new Pane();
-        backGround = new BackGround(this);
+        backGround = new BackGround(this, clock);
         Back_inst.getChildren().add(backGround.getBack_pane());
+
+
         scene = new Scene(Back_inst,1250, 750);
         Pane scene_add_root = (Pane) scene.getRoot();
         promptImage = new PromptImage();

@@ -33,7 +33,7 @@ public class BackGround
 
 
 
-    public BackGround(Head fact)
+    public BackGround(Head fact, Clock clock)
     {
         this.primaryStage = fact.getPrimaryStage();
         this.dataField = fact.getDataField();
@@ -66,7 +66,7 @@ public class BackGround
         back_pane.getChildren().add(label);
 
         //时间界面
-        clock = new Clock();
+        this.clock = clock;
         Pane clock_pane = clock.getClock();
         back_pane.getChildren().add(clock_pane);
         //设置界面
