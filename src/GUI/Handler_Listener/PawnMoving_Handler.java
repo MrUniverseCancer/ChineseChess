@@ -141,7 +141,7 @@ public class PawnMoving_Handler implements EventHandler<MouseEvent>
         head_inst.getBackGround().getGameRecoder().addMove(move);
         if( red == 0 || black == 0)
         {
-            head_inst.getContestEnd_handler().SelfEND();
+            head_inst.getContestEnd_handler().SelfEND(red == 0, black == 0);
         }
     }
 

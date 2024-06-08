@@ -12,7 +12,7 @@ import javafx.util.Duration;
 
 
 public class Clock   {
-    private int clk_reset_value = 900;
+    private final int clk_reset_value = 10;
     private int player1CountEnable = 0;
     private int player2CountEnable = 0;
     private int remainingTime1 = clk_reset_value; // 剩余时间初始值为300秒
@@ -41,12 +41,6 @@ public class Clock   {
             stopPlayer1();
         }
         this.head_inst = head_inst;
-        timerLabel1.setText(formatTime(remainingTime1));
-        timerLabel2.setText(formatTime(remainingTime2));
-    }
-
-    public void setClk_reset_value(int clk_reset_value) {
-        this.clk_reset_value = clk_reset_value;
     }
 
     public boolean getIsEnd()
@@ -191,10 +185,11 @@ public class Clock   {
     public void timeEndHandle(int player)
     {
         System.out.println("Player " + player + " Time End");
-        String move = ((player == 1 && direction == 0) || (player == 2 && direction == 1)) ? "Black Win"  : "Red Win";
+        boolean winner = ((player == 1 && direction == 0) || (player == 2 && direction == 1));//  1 - black, 0 - red
+        String move = winner ? "Black Win"  : "Red Win";
         head_inst.getBackGround().getGameRecoder().addMove(move);
         head_inst.getPromptImage().setPrompt_label(move);
-        head_inst.getContestEnd_handler().SelfEND();
+        head_inst.getContestEnd_handler().SelfEND(winner, !winner);
     }
 
     public javafx.scene.layout.Pane getPane() {

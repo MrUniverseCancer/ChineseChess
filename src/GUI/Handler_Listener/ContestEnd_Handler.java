@@ -2,6 +2,7 @@ package GUI.Handler_Listener;
 
 import GUI.Clock;
 import GUI.Head;
+import GUI.dataField;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -11,18 +12,22 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import rules.AccountManager;
+import java.util.Random;    
 
 public class ContestEnd_Handler implements EventHandler<ActionEvent>
 {
     private Head head_inst;
     private Button button;
     private Clock clock;
+    private dataField DataField;
 
-    public ContestEnd_Handler(Head head_inst, Button button, Clock clock)
+    public ContestEnd_Handler(Head head_inst, Button button, Clock clock, dataField DataField)
     {
         this.button = button;
         this.head_inst = head_inst;
         this.clock = clock;
+        this.DataField = DataField;
     }
 
     public void handle(ActionEvent e)
@@ -42,11 +47,39 @@ public class ContestEnd_Handler implements EventHandler<ActionEvent>
         head_inst.getBackGround().getGameRecoder().clearMoves();
     }
 
-    public void SelfEND()
+    public void SelfEND(boolean red_lose, boolean black_lose)
     {
         // 暂停时钟
         clock.stopOnly();
+        Random random = new Random();
+        int min = 15;
+        int max = 30;
 
+        // 生成 15 到 30 之间的随机数
+        int randomNumber = random.nextInt((max - min) + 1) + min;
+        
+        if(DataField.getAccountManager() == 1)  //红色是当前账户
+        {
+            if(red_lose)  //红方时间没了，账户减分
+            {
+                AccountManager.changeAccountScore(DataField.getAccount(), -randomNumber);
+            }
+            else    //黑方时间没了，账户加分
+            {
+                AccountManager.changeAccountScore(DataField.getAccount(), randomNumber);
+            }
+        }
+        else    //黑色是当前账户
+        {
+            if(black_lose)  //黑方时间没了，账户减分
+            {
+                AccountManager.changeAccountScore(DataField.getAccount(), -randomNumber);
+            }
+            else    //红方时间没了，账户加分
+            {
+                AccountManager.changeAccountScore(DataField.getAccount(), randomNumber);
+            }
+        }
         // 随意点击鼠标后，退出比赛页面
         // 先覆盖一层，使所有选项失效，点击后消除
         Pane tempPane = new Pane();

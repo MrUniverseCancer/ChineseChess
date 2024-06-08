@@ -91,7 +91,7 @@ public class Head extends Application
 
     public void EndHandlerInitial(Button button, Clock clock)
     {
-        contestEnd_handler = new ContestEnd_Handler(this, button, clock);
+        contestEnd_handler = new ContestEnd_Handler(this, button, clock, dataField);
         return ;
     }
 
