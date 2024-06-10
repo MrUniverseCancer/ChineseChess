@@ -12,10 +12,11 @@ public class ForeverButton
     private Pane pane;
     private Button button;
     private Clock clock;
-
-    public ForeverButton(Head fact, Clock clock)
+    private dataField DataField;
+    public ForeverButton(Head fact, Clock clock, dataField DataField)
     {
         this.clock = clock;
+        this.DataField = DataField;
         // 创建 Pane
         pane = new Pane();
         pane.setPrefSize(500, 750);
@@ -35,7 +36,7 @@ public class ForeverButton
 
         // 将按钮添加到 Pane 中
         pane.getChildren().add(button);
-        button.setOnAction(new BeginningGame_Handler(fact, button, clock));
+        button.setOnAction(new BeginningGame_Handler(fact, button, clock, DataField));
 
         fact.EndHandlerInitial(button, clock);
     }

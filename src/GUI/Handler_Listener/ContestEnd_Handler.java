@@ -38,7 +38,7 @@ public class ContestEnd_Handler implements EventHandler<ActionEvent>
         clock.stopCount();
         head_inst.contestScreenDel();
         button.setText("开始比赛");
-        button.setOnAction(new BeginningGame_Handler(head_inst, button, clock));
+        button.setOnAction(new BeginningGame_Handler(head_inst, button, clock, DataField));
         head_inst.getBackGround().getRankingList_Button().setVisible(true);
         head_inst.getBackGround().getSetUp_Button().setVisible(true);
         head_inst.getBackGround().getLogin_Button().setVisible(true);

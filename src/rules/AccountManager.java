@@ -12,8 +12,13 @@ public class AccountManager {
         {
             return -1;  //用户名不能为空
         }
+        else if(verifyIfRegistered(username) == 1)
+        {
+            System.out.println("Account already exists");
+            return -1;
+        }
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(ACCOUNT_FILE_PATH, true))) {
-            writer.write(username + "," + password);
+            writer.write(username + "," + password + ",0");
             writer.newLine();
         } catch (IOException e) {
             System.err.println("Error storing account: " + e.getMessage());
@@ -28,10 +33,10 @@ public class AccountManager {
             String line;
             while ((line = reader.readLine()) != null) {    //查询每个注册了的账户
                 String[] parts = line.split(",");   //parts[1]为账户名,parts[2]为账户密码
-                if (parts.length == 2 && parts[0].equals(username) && parts[1].equals(password)) {
+                if (parts.length == 3 && parts[0].equals(username) && parts[1].equals(password)) {
                     return 0;   //验证成功
                 }
-                else if(parts.length == 2 && parts[0].equals(username) && !parts[1].equals(password)) {
+                else if(parts.length == 3 && parts[0].equals(username) && !parts[1].equals(password)) {
                     return -2;  //有该用户，但是密码不正确
                 }
             }
@@ -49,7 +54,7 @@ public class AccountManager {
             String line;
             while ((line = reader.readLine()) != null) {      //查询每个注册了的账户
                 String[] parts = line.split(",");       //parts[1]为账户名,parts[2]为账户密码
-                if (parts.length == 2 && parts[0].equals(username)) {
+                if (parts.length == 3 && parts[0].equals(username)) {
                     return 1;   //该用户已注册
                 }
             }
