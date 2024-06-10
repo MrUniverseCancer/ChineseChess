@@ -30,6 +30,7 @@ public class BackGround
 
     private GameRecoder gameRecoder;
     private ScrollPane recode_pane;
+    private video video;
 
 
 
@@ -77,6 +78,10 @@ public class BackGround
         gameRecoder = new GameRecoder();
         recode_pane = gameRecoder.getScrollPane();
         back_pane.getChildren().add(recode_pane);
+
+        // video相关
+        video = new video();
+
 
 
 
@@ -144,4 +149,7 @@ public class BackGround
         return button1.getButton();
     }
 
+    public GUI.video getVideo() {
+        return video;
+    }
 }

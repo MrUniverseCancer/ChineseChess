@@ -45,6 +45,7 @@ public class ContestEnd_Handler implements EventHandler<ActionEvent>
         head_inst.getBackGround().getClock().getPane().setVisible(false);
         head_inst.getBackGround().getRecode_pane().setVisible(false);
         head_inst.getBackGround().getGameRecoder().clearMoves();
+        head_inst.getBackGround().getVideo().play1();
     }
 
     public void SelfEND(boolean red_lose, boolean black_lose)

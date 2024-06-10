@@ -44,5 +44,7 @@ public class BeginningGame_Handler implements EventHandler<ActionEvent>
         //将时钟和排行榜设为可见
         head_inst.getBackGround().getClock().getPane().setVisible(true);
         head_inst.getBackGround().getRecode_pane().setVisible(true);
+        //将video设置为比赛模式
+        head_inst.getBackGround().getVideo().play2();
     }
 }
